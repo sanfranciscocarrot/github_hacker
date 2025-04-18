@@ -6,7 +6,7 @@ const router = express.Router();
 const planetRAG = new PlanetRAG();
 
 // Initialize the RAG system with the PDF
-const pdfPath = path.join(__dirname, '../../interstellar.pdf');
+const pdfPath = path.join(__dirname, '../../../interstellar.pdf');
 console.log('Initializing RAG system with PDF:', pdfPath);
 
 planetRAG.initialize(pdfPath)

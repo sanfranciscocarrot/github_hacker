@@ -1,24 +1,14 @@
 import React from 'react';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import { InterstellarMap } from './components/InterstellarMap';
-
-const theme = extendTheme({
-  styles: {
-    global: {
-      body: {
-        bg: 'black',
-        margin: 0,
-        padding: 0,
-        overflow: 'hidden',
-      },
-    },
-  },
-});
+import { ChakraProvider, Box } from '@chakra-ui/react';
+import { TradePanel } from './components/TradePanel';
+import theme from './theme';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <InterstellarMap />
+      <Box h="100vh" p={4} bg="gray.900">
+        <TradePanel />
+      </Box>
     </ChakraProvider>
   );
 }

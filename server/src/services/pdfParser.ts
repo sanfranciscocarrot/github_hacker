@@ -72,11 +72,12 @@ export class PDFParser {
             return processedData;
         } catch (error) {
             console.error('Error parsing PDF:', error);
-            if (axios.isAxiosError(error)) {
+            if (error && typeof error === 'object' && 'response' in error) {
+                const err = error as { response?: { status?: number; statusText?: string; data?: any } };
                 console.error('API Error Details:', {
-                    status: error.response?.status,
-                    statusText: error.response?.statusText,
-                    data: error.response?.data
+                    status: err.response?.status,
+                    statusText: err.response?.statusText,
+                    data: err.response?.data
                 });
             }
             throw error;

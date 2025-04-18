@@ -1,5 +1,5 @@
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
-import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
+import { OpenAIEmbeddings } from '@langchain/openai';
 import { MemoryVectorStore } from 'langchain/vectorstores/memory';
 import { Document } from 'langchain/document';
 import { PDFParser } from './pdfParser';
@@ -10,6 +10,13 @@ interface ProcessedElement {
         page_number: number;
         [key: string]: any;
     };
+}
+
+interface DocumentMetadata {
+    source: string;
+    page: number;
+    page_number: number;
+    [key: string]: any;
 }
 
 export class PlanetRAG {
@@ -38,7 +45,7 @@ export class PlanetRAG {
                     console.warn('Empty text content found in element');
                     return null;
                 }
-                return new Document({
+                return new Document<DocumentMetadata>({
                     pageContent: element.text,
                     metadata: {
                         source: pdfPath,
@@ -46,7 +53,7 @@ export class PlanetRAG {
                         ...element.metadata
                     },
                 });
-            }).filter((doc): doc is Document => doc !== null);
+            }).filter((doc): doc is Document<DocumentMetadata> => doc !== null);
 
             if (documents.length === 0) {
                 throw new Error('No valid documents were created from the PDF content');

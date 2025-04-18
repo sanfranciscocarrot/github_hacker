@@ -11,5 +11,10 @@
   },
   "dependencies": {
     "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "@chakra-ui/react": "^3.16.0",
+    "@emotion/react": "^11.14.0",
+    "@types/react": "^19.1.2"
   }
-} 
+}
