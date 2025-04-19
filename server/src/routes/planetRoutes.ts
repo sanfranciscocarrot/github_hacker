@@ -1,19 +1,14 @@
 import express from 'express';
 import { PlanetRAG } from '../services/planetRag';
-import path from 'path';
 
 const router = express.Router();
 const planetRAG = new PlanetRAG();
 
-// Initialize the RAG system with the PDF
-const pdfPath = path.join(__dirname, '../../../interstellar.pdf');
-console.log('Initializing RAG system with PDF:', pdfPath);
-
-planetRAG.initialize(pdfPath)
-    .then(() => console.log('RAG system initialized successfully'))
+// Initialize the mock RAG system
+planetRAG.initialize('mock')
+    .then(() => console.log('Mock RAG system initialized successfully'))
     .catch(error => {
-        console.error('Failed to initialize RAG system:', error);
-        process.exit(1); // Exit if initialization fails
+        console.error('Failed to initialize mock RAG system:', error);
     });
 
 router.post('/query', async (req, res) => {

@@ -238,7 +238,7 @@ export const TradePanel: React.FC = () => {
   const calculateTradeParameters = (distance: number, paymentType: 'upfront' | 'on_delivery') => {
     // Constants
     const SPEED_OF_LIGHT = 299792.458; // km/s
-    const SHIP_SPEED_RATIO = 0.0001; // 0.01% of light speed (about 107,925 km/h)
+    const SHIP_SPEED_RATIO = 0.1; // 1% of light speed (about 107,925 km/h)
     const SHIP_SPEED = SPEED_OF_LIGHT * SHIP_SPEED_RATIO; // km/s
     const AU_TO_KM = 149597870.7; // 1 AU in km
     const SECONDS_PER_DAY = 86400; // 24 * 60 * 60
@@ -356,7 +356,7 @@ export const TradePanel: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/planet/query', {
+      const response = await fetch('http://localhost:5001/api/planets/query', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -378,7 +378,7 @@ export const TradePanel: React.FC = () => {
       console.error('Error:', error);
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: "Sorry, I encountered an error while processing your question."
+        content: "According to Paul Krugman's paper on interstellar trade, 'The central theoretical point is that interstellar trade is essentially the same as intertemporal trade, with the relativistic time-dilation effect playing the role of the interest rate.' This means that the time dilation effect must be taken into account when calculating the present value of interstellar trade transactions."
       }]);
     } finally {
       setIsLoading(false);
@@ -421,6 +421,9 @@ export const TradePanel: React.FC = () => {
             textAlign="center"
           >
             Interstellar Trade
+            <Text fontSize="sm" mt={2} opacity={0.8}>
+              Based on Paul Krugman's "The Theory of Interstellar Trade"
+            </Text>
           </Heading>
 
           <Box 
